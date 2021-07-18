@@ -1,0 +1,33 @@
+{
+  "name": "dm-discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "discordjs"
+  ],
+  "author": "NikitOS_MV",
+  "license": "MIT",
+  "dependencies": {
+    "discord-paginationembed": "^2.1.0",
+    "discord-player": "^4.1.4",
+    "discord.js": "^12.5.3",
+    "localizationjs": "^2.0.16",
+    "opusscript": "^0.0.8",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.6.4",
+    "sequelize-typescript": "^2.1.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^10.17.60",
+    "@types/validator": "^13.6.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  }
+}
