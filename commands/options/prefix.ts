@@ -1,9 +1,9 @@
 import AbstractCommand from "../../base/AbstractCommand";
 
 import Bot from "../../bot";
+
 import CommandInfo from "../../types/CommandInfo";
 import ErrorMessage from "../../errors/ErrorMessage";
-
 import GuildOptionHelper from "../../helpers/GuildOptionHelper";
 
 module.exports = class extends AbstractCommand
@@ -27,6 +27,7 @@ module.exports = class extends AbstractCommand
     {
         const bot = this.bot;
         const message = this.message;
+        const channel = message.channel;
         const args = this.args;
         const options = this.options;
 
@@ -34,7 +35,7 @@ module.exports = class extends AbstractCommand
 
         if (!args.length && !options.size)
         {
-            return await message.channel.send(
+            return await channel.send(
                 bot.embedMessage(
                     bot.t('prefix.current_prefix_x', {
                         prefix: await guildOptionHelper.get('prefix')
@@ -58,12 +59,12 @@ module.exports = class extends AbstractCommand
                 || /(?:[\p{M}]{1})([\p{M}])+/usi.test((newPrefix))
             )
             {
-                throw new ErrorMessage(bot, message.channel, 'error.invalid_value');
+                throw new ErrorMessage(bot, channel, 'error.invalid_value');
             }
         }
 
         await guildOptionHelper.set('prefix', newPrefix);
-        await message.channel.send(
+        await channel.send(
             bot.embedMessage(
                 bot.t('prefix.new_prefix_x', {
                     prefix: newPrefix

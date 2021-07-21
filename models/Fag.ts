@@ -1,19 +1,20 @@
 import {Guild, GuildMember} from "discord.js";
 
-import {Column, Default, PrimaryKey, Table, Model, DataType} from 'sequelize-typescript';
+import {AutoIncrement, Column, Default, PrimaryKey, Table, Model, DataType} from 'sequelize-typescript';
 import {Op, col, fn} from "sequelize";
 
 @Table
 export default class Fag extends Model
 {
+    @AutoIncrement
     @PrimaryKey
     @Column(DataType.INTEGER)
     fag_id: number;
 
-    @Column(DataType.TEXT)
+    @Column(DataType.STRING(19))
     guild_id: string;
 
-    @Column(DataType.TEXT)
+    @Column(DataType.STRING(19))
     user_id: string;
 
     @Default(new Date().getTime())
@@ -22,7 +23,7 @@ export default class Fag extends Model
 
     public static addFag(guild: Guild, user: GuildMember)
     {
-        return this.upsert({
+        return this.create({
             guild_id: guild.id,
             user_id: user.id
         });

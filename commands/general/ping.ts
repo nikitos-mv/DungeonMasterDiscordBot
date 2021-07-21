@@ -1,8 +1,9 @@
 import AbstractCommand from "../../base/AbstractCommand";
 
-import * as Discord from "discord.js";
+import {MessageEmbed} from "discord.js";
 
 import Bot from "../../bot";
+
 import CommandInfo from "../../types/CommandInfo";
 
 module.exports = class extends AbstractCommand
@@ -21,25 +22,26 @@ module.exports = class extends AbstractCommand
 
     async execute()
     {
+        const bot = this.bot;
         const message = this.message;
 
         const ping = Date.now() - message.createdTimestamp;
-        const apiPing = Math.round(this.bot.ws.ping);
+        const apiPing = Math.round(bot.ws.ping);
 
-        const embed = new Discord.MessageEmbed()
-            .setColor(this.bot.config.colors.default)
-            .setTitle(this.bot.t('ping.pong'))
+        const embed = new MessageEmbed()
+            .setColor(bot.config.colors.default)
+            .setTitle(bot.t('ping.pong'))
             .addFields(
                 {
-                    name: this.bot.t('ping.ping'),
-                    value: this.bot.t('x_ms', {
+                    name: bot.t('ping.ping'),
+                    value: bot.t('x_ms', {
                         ms: ping
                     }),
                     inline: true
                 },
                 {
-                    name: this.bot.t('ping.api_ping'),
-                    value: this.bot.t('x_ms', {
+                    name: bot.t('ping.api_ping'),
+                    value: bot.t('x_ms', {
                         ms: apiPing
                     }),
                     inline: true

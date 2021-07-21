@@ -1,9 +1,10 @@
 import AbstractCommand from "../../base/AbstractCommand";
 
+import {MessageEmbed} from "discord.js";
+
 import Bot from "../../bot";
 
 import CommandInfo from "../../types/CommandInfo";
-import {MessageEmbed} from "discord.js";
 import ErrorMessage from "../../errors/ErrorMessage";
 
 module.exports = class extends AbstractCommand

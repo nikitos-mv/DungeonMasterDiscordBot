@@ -1,5 +1,4 @@
 import Bot from "../bot";
-import FilterList from "discord-player/lib/utils/AudioFilters";
 
 module.exports = {
     name: 'ready',

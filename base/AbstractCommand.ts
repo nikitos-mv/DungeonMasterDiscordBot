@@ -120,6 +120,7 @@ export default abstract class AbstractCommand
     {
         const bot = this.bot;
         const message = this.message;
+        const channel = message.channel;
 
         const cooldown = await (new GuildOptionHelper(bot, message.guild)).get('cooldown');
         const cooldownAmount = (this.cooldown !== undefined ? this.cooldown : cooldown) * 1000;
@@ -141,7 +142,7 @@ export default abstract class AbstractCommand
                 {
                     const timeLeft = (expirationTime - now) / 1000;
 
-                    throw new ErrorMessage(bot, message.channel, 'error.cooldown', {
+                    throw new ErrorMessage(bot, channel, 'error.cooldown', {
                         time: timeLeft.toFixed(2),
                         command: this.name
                     })
@@ -155,17 +156,17 @@ export default abstract class AbstractCommand
 
         if (this.developmentOnly && !bot.config.developmentMode)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.command_only_available_in_development_mode');
+            throw new ErrorMessage(bot, channel, 'error.command_only_available_in_development_mode');
         }
 
         if ((this.guildOnly || this.ownerOnly) && !message.guild)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.command_only_available_in_guild');
+            throw new ErrorMessage(bot, channel, 'error.command_only_available_in_guild');
         }
 
         if (this.dmOnly && message.guild)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.command_only_available_in_dm');
+            throw new ErrorMessage(bot, channel, 'error.command_only_available_in_dm');
         }
 
         if (message.guild)
@@ -178,14 +179,15 @@ export default abstract class AbstractCommand
     public assertBotHasPermissions()
     {
         const message = this.message;
+        const channel = message.channel;
 
-        if (message.channel instanceof DMChannel)
+        if (channel instanceof DMChannel)
         {
             return;
         }
 
         const bot = this.bot;
-        const botPermissions = message.channel.permissionsFor(message.guild.me);
+        const botPermissions = channel.permissionsFor(message.guild.me);
 
         if (botPermissions && !botPermissions.has(<PermissionResolvable>this.botPermissions))
         {
@@ -201,7 +203,7 @@ export default abstract class AbstractCommand
 
             if (botPermissions.has(['SEND_MESSAGES', 'EMBED_LINKS']))
             {
-                throw new ErrorMessage(bot, message.channel, errorMessage);
+                throw new ErrorMessage(bot, channel, errorMessage);
             }
             else
             {
@@ -214,15 +216,16 @@ export default abstract class AbstractCommand
     {
         const bot = this.bot;
         const message = this.message;
+        const channel = message.channel;
 
         if (this.sudo && !bot.SUDOERS.includes(Number(message.author.id)))
         {
-            throw new ErrorMessage(bot, message.channel, 'error.not_in_sudoers');
+            throw new ErrorMessage(bot, channel, 'error.not_in_sudoers');
         }
 
         if ((this.sudoOnly && !this.sudo))
         {
-            throw new ErrorMessage(bot, message.channel, 'error.no_user_permissions_to_execute_command_x', {
+            throw new ErrorMessage(bot, channel, 'error.no_user_permissions_to_execute_command_x', {
                 command: this.name
             });
         }
@@ -232,17 +235,17 @@ export default abstract class AbstractCommand
             return;
         }
 
-        if (message.channel instanceof DMChannel)
+        if (channel instanceof DMChannel)
         {
             return;
         }
 
         if (this.ownerOnly && message.member.id !== message.guild.owner.id)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.command_only_available_to_owner');
+            throw new ErrorMessage(bot, channel, 'error.command_only_available_to_owner');
         }
 
-        const userPermissions = message.channel.permissionsFor(message.author);
+        const userPermissions = channel.permissionsFor(message.author);
 
         if (userPermissions && !userPermissions.has(<PermissionResolvable>this.userPermissions))
         {
@@ -256,7 +259,7 @@ export default abstract class AbstractCommand
                     return bot.t(`permission.${permission}`);
                 }).join('\n')}`;
 
-                throw new ErrorMessage(bot, message.channel, errorMessage);
+                throw new ErrorMessage(bot, channel, errorMessage);
         }
     }
 

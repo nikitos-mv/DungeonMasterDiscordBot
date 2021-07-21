@@ -3,9 +3,10 @@ import AbstractCommand from "../../base/AbstractCommand";
 import * as Discord from "discord.js";
 
 import Bot from "../../bot";
+
 import CommandInfo from "../../types/CommandInfo";
-import GuildOptionHelper from "../../helpers/GuildOptionHelper";
 import ErrorMessage from "../../errors/ErrorMessage";
+import GuildOptionHelper from "../../helpers/GuildOptionHelper";
 
 module.exports = class extends AbstractCommand
 {
@@ -24,7 +25,9 @@ module.exports = class extends AbstractCommand
     async execute()
     {
         const bot = this.bot;
+        const colors = bot.config.colors;
         const message = this.message;
+        const channel = message.channel;
         const args = this.args;
 
         const guildOptionHelper = new GuildOptionHelper(this.bot, message.guild);
@@ -45,14 +48,14 @@ module.exports = class extends AbstractCommand
                 });
 
             const embed = new Discord.MessageEmbed()
-                .setColor(bot.config.colors.default)
+                .setColor(colors.default)
                 .setTitle(bot.t('command_group_list'))
                 .addFields(fields)
                 .setFooter(bot.t('command_usage.help', {
                     prefix: prefix
                 }));
 
-            return await message.channel.send(embed);
+            return await channel.send(embed);
         }
 
         const name = args[0].toLowerCase();
@@ -66,7 +69,7 @@ module.exports = class extends AbstractCommand
 
         if (!command && !commandGroup)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.not_found');
+            throw new ErrorMessage(bot, channel, 'error.not_found');
         }
 
         const embed = new Discord.MessageEmbed();
@@ -74,7 +77,7 @@ module.exports = class extends AbstractCommand
         if (command)
         {
             embed
-                .setColor(bot.config.colors.default)
+                .setColor(colors.default)
                 .setTitle(command.name)
                 .setDescription(bot.t(`command_description_full.${command.name}`))
                 .setFooter(bot.t(`command_usage.${command.name}`, {
@@ -110,7 +113,7 @@ module.exports = class extends AbstractCommand
                 });
 
             embed
-                .setColor(bot.config.colors.default)
+                .setColor(colors.default)
                 .setTitle(bot.t(`command_group_title.${commandGroup.id}`, {
                     id: commandGroup.id
                 }))
@@ -118,6 +121,6 @@ module.exports = class extends AbstractCommand
                 .addFields(groupCommands);
         }
 
-        return await message.channel.send(embed);
+        return await channel.send(embed);
     }
 }

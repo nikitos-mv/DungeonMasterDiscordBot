@@ -1,4 +1,4 @@
 module.exports = {
     id: 'faginspector',
-    order: 40
+    order: 50
 };

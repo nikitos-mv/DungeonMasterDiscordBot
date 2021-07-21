@@ -1,11 +1,12 @@
 import AbstractCommand from "../../base/AbstractCommand";
 
+import {FieldsEmbed} from "discord-paginationembed";
+
 import Bot from "../../bot";
 
 import CommandInfo from "../../types/CommandInfo";
 import Fag from "../../models/Fag";
 import ErrorMessage from "../../errors/ErrorMessage";
-import {FieldsEmbed} from "discord-paginationembed";
 
 module.exports = class extends AbstractCommand
 {
@@ -26,6 +27,7 @@ module.exports = class extends AbstractCommand
     async execute()
     {
         const bot = this.bot;
+        const config = bot.config;
         const message = this.message;
         const channel = message.channel;
         const guild = message.guild;
@@ -33,7 +35,7 @@ module.exports = class extends AbstractCommand
 
         const fieldsEmbed = new FieldsEmbed();
 
-        fieldsEmbed.embed.setColor(bot.config.colors.default);
+        fieldsEmbed.embed.setColor(config.colors.default);
 
         const fagotStatsFields = [];
         let fagots: Fag[];
@@ -94,8 +96,8 @@ module.exports = class extends AbstractCommand
             .setAuthorizedUsers([message.author.id])
             // @ts-ignore
             .setChannel(channel)
-            .setElementsPerPage(bot.config.fagots.perPage)
-            .setPageIndicator(true, 'circle')
+            .setElementsPerPage(config.fagots.perPage)
+            .setPageIndicator(true, 'textcompact')
             .setArray(fagotStatsFields)
             .formatField(bot.t('fagots.chat_is_proud_of_them'), entry => bot.t('fagots.x_was_fag_y_times', {
                 // @ts-ignore

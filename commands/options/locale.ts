@@ -29,12 +29,13 @@ module.exports = class extends AbstractCommand
     {
         const bot = this.bot;
         const message = this.message;
+        const channel = message.channel;
         const args = this.args;
         const options = this.options;
 
         if (bot.locales.length === 1)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.no_permissions');
+            throw new ErrorMessage(bot, channel, 'error.no_permissions');
         }
 
         const guildOptionHelper = new GuildOptionHelper(bot, message.guild);
@@ -56,10 +57,10 @@ module.exports = class extends AbstractCommand
                 .setColor(bot.config.colors.default)
                 .addFields(fields);
 
-            return await message.channel.send(embed);
+            return await channel.send(embed);
         }
 
-        let newLocale = '';
+        let newLocale: string;
         if (options.get('unset'))
         {
             newLocale = guildOptionHelper.getDefault('locale');
@@ -70,12 +71,12 @@ module.exports = class extends AbstractCommand
 
             if (!bot.locale.hasDict(newLocale))
             {
-                throw new ErrorMessage(bot, message.channel, 'error.invalid_value');
+                throw new ErrorMessage(bot, channel, 'error.invalid_value');
             }
         }
 
         await guildOptionHelper.set('locale', newLocale);
-        await message.channel.send(
+        await channel.send(
             bot.embedMessage(
                 bot.t('locale.new_locale_x', {
                     locale: newLocale

@@ -1,11 +1,12 @@
 import AbstractCommand from "../../base/AbstractCommand";
 
+import {MessageEmbed} from "discord.js";
+import {FieldsEmbed} from "discord-paginationembed";
+
 import Bot from "../../bot";
 
 import CommandInfo from "../../types/CommandInfo";
 import ErrorMessage from "../../errors/ErrorMessage";
-import {MessageEmbed} from "discord.js";
-import {FieldsEmbed} from "discord-paginationembed";
 
 module.exports = class extends AbstractCommand
 {
@@ -29,12 +30,13 @@ module.exports = class extends AbstractCommand
         const config = bot.config;
         const player = bot.player;
         const message = this.message;
+        const channel = message.channel;
 
         const queue = player.getQueue(message);
 
         if (!queue)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.player.queue_is_null');
+            throw new ErrorMessage(bot, channel, 'error.player.queue_is_null');
         }
 
         const tracks = queue.tracks.map((track, index) => {
@@ -57,7 +59,7 @@ module.exports = class extends AbstractCommand
                     tracks[0].requestedBy.avatarURL()
                 );
 
-            await message.channel.send(embed);
+            await channel.send(embed);
 
             return;
         }
@@ -86,9 +88,9 @@ module.exports = class extends AbstractCommand
             })
             .setAuthorizedUsers([message.author.id])
             // @ts-ignore
-            .setChannel(message.channel)
+            .setChannel(channel)
             .setElementsPerPage(config.playerQueue.perPage)
-            .setPageIndicator(true, 'circle')
+            .setPageIndicator(true, 'textcompact')
             .setArray(tracks[1] ? tracks.slice(1, tracks.length) : [])
             .formatField(
                 bot.t('music.total_queue_x', {

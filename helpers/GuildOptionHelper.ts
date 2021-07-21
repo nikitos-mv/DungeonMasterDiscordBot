@@ -1,6 +1,7 @@
 import {Collection, Guild} from "discord.js";
 
 import Bot from "../bot";
+
 import GuildOption from "../models/GuildOption";
 
 export default class GuildOptionHelper

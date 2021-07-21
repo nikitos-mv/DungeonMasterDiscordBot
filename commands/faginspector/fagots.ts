@@ -62,7 +62,7 @@ module.exports = class extends AbstractCommand
             }
         }
 
-        await this.randomDelay();
+        await this.delay();
 
         const avoidMessages = (await channel.messages.fetch({
             'after': message.id
@@ -88,15 +88,15 @@ module.exports = class extends AbstractCommand
             throw new ErrorMessage(bot, channel, 'error.fagots.not_found')
         }
 
-        await Fag.addFag(guild, fag);
-
         await channel.send(bot.t('fagots.search.start'));
-        await this.randomDelay();
+        await this.delay();
         await channel.send(bot.t('fagots.search.middle'))
-        await this.randomDelay();
+        await this.delay();
         await channel.send(bot.t('fagots.search.finish'))
-        await this.randomDelay();
+        await this.delay();
         await channel.send(fag.toString());
+
+        await Fag.addFag(guild, fag);
 
         if (Math.random() < config.fagots.competitionProbability)
         {
@@ -109,20 +109,20 @@ module.exports = class extends AbstractCommand
                 return;
             }
 
-            await Fag.addFag(guild, secondFag);
-
-            await this.randomDelay();
+            await this.delay();
             await channel.send(bot.t('fagots.search.competition'))
-            await this.randomDelay();
+            await this.delay();
             await channel.send(
                 bot.t('fagots.second_fag_x', {
                     fag: secondFag.toString()
                 })
             );
+
+            await Fag.addFag(guild, secondFag);
         }
     }
 
-    private randomDelay() {
+    private delay() {
         return new Promise(resolve => {
             setTimeout(resolve, Math.random()*this.bot.config.fagots.maxDelay);
         });

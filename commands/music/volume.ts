@@ -25,17 +25,18 @@ module.exports = class extends AbstractCommand
     {
         const bot = this.bot;
         const message = this.message;
+        const channel = message.channel;
 
         const volume = Number(this.args[0]);
 
         if (isNaN(volume) || volume < 0 || volume > 200)
         {
-            throw new ErrorMessage(bot, message.channel, 'error.invalid_value');
+            throw new ErrorMessage(bot, channel, 'error.invalid_value');
         }
 
         if (bot.player.setVolume(message, volume))
         {
-            await message.channel.send(
+            await channel.send(
                 bot.embedSuccess(
                     bot.t('music.volume_x', {
                         volume: volume.toString()

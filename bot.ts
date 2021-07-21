@@ -1,20 +1,20 @@
-import * as Discord from "discord.js";
+import {Client, Collection, MessageEmbed, Snowflake} from "discord.js";
 import {Player} from "discord-player";
 
 import Localization = require('localizationjs');
 
 import {Sequelize} from "sequelize-typescript";
 
-const config = require('./config.json');
-
-import * as fs from "fs";
-import path = require('path');
-
 import AbstractCommand from "./base/AbstractCommand";
 import Config from "./types/Config";
 import ErrorMessage from "./errors/ErrorMessage";
 
-export default class Bot extends Discord.Client
+import * as fs from "fs";
+import * as path from "path";
+
+const config = require('./config.json');
+
+export default class Bot extends Client
 {
     public readonly VERSION = require('./package.json').version;
     public readonly DEVELOPERS = {
@@ -34,7 +34,7 @@ export default class Bot extends Discord.Client
 
     public readonly config: Config;
 
-    public guildOptions: Discord.Collection<string, any>;
+    public guildOptions: Collection<string, any>;
 
     public locale: Localization;
     public locales: string[];
@@ -43,9 +43,9 @@ export default class Bot extends Discord.Client
 
     public db: Sequelize;
 
-    public commandGroups: Discord.Collection<string, any>; // TODO: category type?
-    public commands: Discord.Collection<string, AbstractCommand>;
-    public cooldowns: Discord.Collection<string, Discord.Collection<Discord.Snowflake, number>>;
+    public commandGroups: Collection<string, any>; // TODO: category type?
+    public commands: Collection<string, AbstractCommand>;
+    public cooldowns: Collection<string, Collection<Snowflake, number>>;
 
     public constructor(options?: object)
     {
@@ -55,7 +55,7 @@ export default class Bot extends Discord.Client
 
         this.config = this.standardizeConfig(config);
 
-        this.guildOptions = new Discord.Collection();
+        this.guildOptions = new Collection();
 
         this.locale = new Localization({
             defaultLocale: this.config.guild.locale
@@ -82,20 +82,25 @@ export default class Bot extends Discord.Client
                 this.config.database.options,
             )
         );
-        this.db.sync()
-            .then(async () => {
+        this.db.sync({
+            alter: {
+                drop: false
+            }
+        })
+            .then(() => {
                 console.log('Database synced.');
             })
             .catch(console.error);
 
         this.loadEventListeners();
 
-        this.commandGroups = new Discord.Collection();
-        this.commands = new Discord.Collection();
-        this.cooldowns = new Discord.Collection();
+        this.commandGroups = new Collection();
+        this.commands = new Collection();
+        this.cooldowns = new Collection();
         this.loadCommands();
 
-        this.login(this.config.token);
+        this.login(this.config.token)
+            .catch(error => console.log(`Login error: ${error}`));
 
         process.on('uncaughtException', error => {
 
@@ -104,7 +109,7 @@ export default class Bot extends Discord.Client
                 return;
             }
 
-            console.error('Caught exception: ' + error);
+            console.error(`Caught exception: ${error}`);
         });
     }
 
@@ -177,6 +182,12 @@ export default class Bot extends Discord.Client
                         'Я - натурал',
                         'Я натурал',
                     ]
+                },
+
+                quote: {
+                    maxLength: 4000,
+                    perPage: 10,
+                    snippetLength: 40
                 }
             },
             config
@@ -281,24 +292,56 @@ export default class Bot extends Discord.Client
         return translation;
     }
 
-    public embedSuccess(message)
+    public embedSuccess(message): MessageEmbed
     {
-        return new Discord.MessageEmbed()
+        return new MessageEmbed()
             .setColor(this.config.colors.success)
             .setDescription(message);
     }
 
-    public embedError(message)
+    public embedError(message): MessageEmbed
     {
-        return new Discord.MessageEmbed()
+        return new MessageEmbed()
             .setColor(this.config.colors.error)
             .setDescription(message);
     }
 
-    public embedMessage(message)
+    public embedMessage(message): MessageEmbed
     {
-        return new Discord.MessageEmbed()
+        return new MessageEmbed()
             .setColor(this.config.colors.default)
             .setDescription(message);
+    }
+
+    public snippet(text: string, length: number, clean = true, addEllipsis: boolean = true): string
+    {
+        if (clean)
+        {
+            text = text.replace(/\s{2,}|\n|\t|`/g, ' ');
+        }
+
+        if (text.length >= length)
+        {
+            let cut;
+            let i = -1;
+            while (i <= length)
+            {
+                i = text.indexOf(' ', i+1);
+
+                if (i === -1)
+                {
+                    return `${text.substr(0, length)}${addEllipsis ? '...' : ''}`;
+                }
+
+                if (i <= length)
+                {
+                    cut = i;
+                }
+            }
+
+            return `${text.substr(0, cut)}${addEllipsis ? '...' : ''}`;
+        }
+
+        return text;
     }
 }

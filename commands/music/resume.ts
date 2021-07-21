@@ -23,13 +23,14 @@ module.exports = class extends AbstractCommand
     async execute()
     {
         const bot = this.bot;
+        const player = bot.player;
         const message = this.message;
 
         // Bug: https://discord-player.js.org/docs/main/master/faq/pause_resume
         if (
-            bot.player.resume(message)
-            && bot.player.pause(message)
-            && bot.player.resume(message)
+            player.resume(message)
+            && player.pause(message)
+            && player.resume(message)
         )
         {
             await message.channel.send(

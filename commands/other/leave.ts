@@ -27,6 +27,7 @@ module.exports = class extends AbstractCommand
         await message.channel.send(
             this.bot.t('pre_leave_parting')
         );
+
         await message.guild.leave();
     }
 }

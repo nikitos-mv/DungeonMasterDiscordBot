@@ -3,7 +3,6 @@ import AbstractCommand from "../../base/AbstractCommand";
 import Bot from "../../bot";
 
 import CommandInfo from "../../types/CommandInfo";
-import ErrorMessage from "../../errors/ErrorMessage";
 
 module.exports = class extends AbstractCommand
 {

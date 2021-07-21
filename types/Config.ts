@@ -12,6 +12,7 @@ export default interface Config
     playerProgressBar: PlayerProgressbarOptions;
     playerQueue: ConfigPlayerQueue;
     fagots: ConfigFagots;
+    quote: ConfigQuote;
 }
 
 interface ConfigColors
@@ -49,4 +50,11 @@ interface ConfigFagots
     perDay: number;
     perPage: number;
     stopPhrases: string[];
+}
+
+interface ConfigQuote
+{
+    maxLength: number;
+    perPage: number;
+    snippetLength: number;
 }

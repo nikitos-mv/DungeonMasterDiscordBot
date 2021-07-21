@@ -1,24 +1,59 @@
 {
     "aliases": "Алиасы",
 
-    "cooldown": {
-        "current_cooldown_x": "Текущий кулдаун: `{{ cooldown }}`.",
-        "new_cooldown_x": "Новый кулдаун: `{{ cooldown }}`."
+    "time": {
+        "day": "День",
+        "days": "Дни",
+        "hour": "Час",
+        "hours": "Часы",
+        "minute": "Минута",
+        "minutes": "Минуты",
+        "month": "Месяц",
+        "months": "Месяцы",
+        "second": "Секунда",
+        "seconds": "Секунды",
+        "year": "Год",
+        "years": "Года",
+        "x_day": "{{ day }} день",
+        "x_days": "{{ days }} дней",
+        "x_days_short": "{{ days }} д.",
+        "x_hour": "{{ hour }} час",
+        "x_hours": "{{ hours }} часов",
+        "x_hours_short": "{{ hours }} ч.",
+        "x_minute": "{{ minute }} минута",
+        "x_minutes": "{{ minutes }} минут",
+        "x_minutes_short": "{{ minutes }} мин.",
+        "x_month": "{{ month }} месяц",
+        "x_months": "{{ months }} месяцев",
+        "x_months_short": "{{ months }} м.",
+        "x_second": "{{ second }} секунда",
+        "x_seconds": "{{ seconds }} секунд",
+        "x_seconds_short": "{{ seconds }} сек.",
+        "x_year": "{{ year }} год",
+        "x_years": "{{ years }} года (лет)",
+        "x_years_short": "{{ years }} г."
     },
+
+    "info_units": {
+        "gb": "ГБ",
+        "mb": "МБ",
+        "x_gb": "{{ gb }} ГБ",
+        "x_mb": "{{ mb}} МБ"
+    },
+
     "info": {
         "description": "",
         "developers": "Разработчики",
         "donate": "На печеньки",
-        "thanks": "Благодарности"
+        "members": "Пользователи",
+        "ram_usage": "Использование ОЗУ",
+        "servers": "Серверы",
+        "thanks": "Благодарности",
+        "uptime": "Uptime"
     },
-    "locale": {
-        "available_locales": "Доступные локали",
-        "current_locale": "Текущая локаль",
-        "current_locale_x": "Текущая локаль: `{{ locale }}`.",
-        "new_locale_x": "Новая локаль: `{{ locale }}`."
-    },
+
     "music": {
-        "added_by_x": "Добавлено пользователем {{ member }}.",
+        "added_by_x": "Добавлено {{ member }}.",
         "all_filters_disabled": "Все фильтры отключены.",
         "current_filters_x": "Текущие фильтры: {{ filters }}.",
         "following_filters_applied": "Применены следующие фильтры: {{ filters }}.",
@@ -38,14 +73,36 @@
         "x_added_to_queue": "Трек [{{ title }} | {{ author }}]({{ url }}) добавлен в очередь воспроизведения.",
         "x_removed_from_queue": "Трек [{{ title }} | {{ author }}]({{ url }}) удален из очерди воспроизведения"
     },
+
     "ping": {
         "api_ping": "Задержка API",
         "ping": "Задержка",
         "pong": "Понг!"
     },
+
+    "cooldown": {
+        "current_cooldown_x": "Текущий кулдаун: `{{ cooldown }}`.",
+        "new_cooldown_x": "Новый кулдаун: `{{ cooldown }}`."
+    },
+    "locale": {
+        "available_locales": "Доступные локали",
+        "current_locale": "Текущая локаль",
+        "current_locale_x": "Текущая локаль: `{{ locale }}`.",
+        "new_locale_x": "Новая локаль: `{{ locale }}`."
+    },
     "prefix": {
         "current_prefix_x": "Текущий префикс: `{{ prefix }}`.",
         "new_prefix_x": "Новый префикс: `{{ prefix }}`."
+    },
+
+    "quote": {
+        "added_by_x": "Добавлено {{ member }}",
+        "embed_title": "{{ author}} | #{{ id }}",
+        "quote_list": "Список цитат",
+        "quote_list_description": "",
+        "quote_x_created": "Цитата #{{ id }} создана.",
+        "quote_x_was_deleted": "Цитата #{{ id }} удалена.",
+        "total_quotes_x": "Всего цитат: {{ total }}."
     },
 
     "fagots": {
@@ -123,6 +180,7 @@
         "general": "Основные (general)",
         "music": "Музыка (music)",
         "fun": "Развлечения (fun)",
+        "quotemanager": "Цитаты (quotemanager)",
         "faginspector": "Инспекция по пидорам (faginspector)",
         "options": "Настройки (options)"
     },
@@ -131,6 +189,7 @@
         "general": "Основные команды.",
         "music": "Управление музыкой.",
         "fun": "Развлекательные команды.",
+        "quotemanager": "Управление цитатами.",
         "faginspector": "Кому, как не боту, знать, где скрываются голубки?",
         "options": "Настройки бота."
     },
@@ -157,6 +216,12 @@
 
         "say": "Бот повторит указанный текст.",
         "saydel": "Бот повторит указанный текст, удалив сообщение с командой.",
+
+        "addquote": "Добавление цитаты.",
+        "deletequote": "Удаление цитаты.",
+        "quote": "Отображение случайной, последней или определенной цитаты.",
+        "quoteimg": "Генерация изображения с цитатой.",
+        "quotes": "Список цитат.",
 
         "fagotstats": "Пидорская статистика этого чата.",
         "fagots": "Определить сегодняшнего пидора.",
@@ -189,6 +254,12 @@
         "say": "Бот повторит указанное сообщение.\nСообщение можно указать как в тексте команды, так и в качестве значения параметра `content`.",
         "saydel": "Бот повторит указанное сообщение, удалив сообщение с командой.\nСообщение можно указать как в тексте команды, так и в качестве значения параметра `content`.",
 
+        "addquote": "Добавление цитаты. Добавить цитату можно, ответив командой на сообщение, или добавив вручную.",
+        "deletequote": "Удаление цитаты.",
+        "quote": "Отображение случайной, последней или определенной цитаты.",
+        "quoteimg": "Генерация изображения с цитатой.",
+        "quotes": "Список цитат.",
+
         "fagotstats": "Пидорская статистика этого чата за месяц, год и за все время.",
         "fagots": "В каждом чате скрываются заднеприводного. Бот поможет определить самого выдающегося пидора дня.",
 
@@ -220,12 +291,18 @@
         "say": "{{ prefix }}say <текст> | {{ prefix }}say --content=\"текст\" --channel=#канал-для-отправки",
         "saydel": "{{ prefix }}saydel <текст> | {{ prefix }}say --content=\"текст\" --channel=#канал-для-отправки",
 
+        "addquote": "{{ prefix }}addquote | {{ prefix }}addquote --text=\"Текст цитаты.\" --author=\"Автор\" --date=\"2021/03/21\"",
+        "deletequote": "{{ prefix }}deletequote [ID цитаты]",
+        "quote": "{{ prefix }}quote <ID цитаты> | {{ prefix }}quote --id=ID-цитаты | {{ prefix }}quote --last",
+        "quoteimg": "{{ prefix }}quoteimg <ID цитаты> | {{ prefix }}quoteimg --id=ID-цитаты",
+        "quotes": "{{ prefix }}quotes",
+
         "fagotstats": "{{ prefix }}fagotstats | {{ prefix }}fagotstats --month | {{ prefix }}fagotstats --year",
         "fagots": "{{ prefix }}fagots",
 
-        "cooldown": "{{ prefix }}cooldown | {{ prefix }}cooldown <новый кулдаун> | {{ prefix }}cooldown --cooldown=\"<новый кулдаун>\" | {{ prefix }}cooldown --unset",
-        "locale": "{{ prefix }}locale | {{ prefix }}locale <новая локаль> | {{ prefix }}locale --locale=\"<новая локаль>\" | {{ prefix }}locale --unset",
-        "prefix": "{{ prefix }}prefix | {{ prefix }}prefix <новый префикс> | {{ prefix }}prefix --prefix=\"<новый префикс>\" | {{ prefix }}prefix --unset"
+        "cooldown": "{{ prefix }}cooldown <новый кулдаун> | {{ prefix }}cooldown --cooldown=\"новый-кулдаун\" | {{ prefix }}cooldown --unset",
+        "locale": "{{ prefix }}locale <новая локаль> | {{ prefix }}locale --locale=\"новая-локаль>\" | {{ prefix }}locale --unset",
+        "prefix": "{{ prefix }}prefix <новый префикс> | {{ prefix }}prefix --prefix=\"новый-префикс>\" | {{ prefix }}prefix --unset"
     },
 
     "command_option_description": {
@@ -276,6 +353,22 @@
             "channel": "Канал для отправки."
         },
 
+        "addquote": {
+            "text": "Текст цитаты.",
+            "author": "Автор цитаты.",
+            "date": "Дата цитаты в форматах RFC2822 или ISO 8601 (например, ГГГГ-ММ-ДД)."
+        },
+        "deletequote": {
+            "id": "ID цитаты."
+        },
+        "quote": {
+            "id": "ID цитаты.",
+            "last": "Отображение последней цитаты."
+        },
+        "quoteimg": {
+            "id": "ID цитаты."
+        },
+
         "fagotstats": {
             "month": "Статистика пидоров за месяц.",
             "year": "Статистика пидоров за год."
@@ -320,7 +413,9 @@
         "error_occurred_while_executing_action_x": "При выполнении действия произошла ошибка: {{ error }}.",
         "invalid_action": "Некорректное действие.",
         "invalid_channel": "Некорректный канал.",
+        "invalid_command_usage": "Некорректное использование команды, ознакомьтесь со справкой по команде.",
         "invalid_content": "Некорректное сообщение.",
+        "invalid_id": "Некорректный идентификатор.",
         "invalid_value": "Некорректное значение.",
         "invalid_option_x_y": "Параметр {{ option }} некорректное значение: `{{ value }}`.",
         "missing_options_x": "Пропущены необходимые параметры: {{ options }}.",
@@ -347,6 +442,15 @@
             "unable_to_join": "Не удалось подключиться к голосовому каналу, проверьте права бота.",
             "video_unavailable": "Видео недоступно.",
             "queue_is_null": "Очередь воспроизведения пуста."
+        },
+
+        "quote": {
+            "invalid_author": "Некорректое имя автора цитаты.",
+            "invalid_content": "Некорректный текст цитаты.",
+            "invalid_date": "Некорректная дата цитаты.",
+            "too_long_author_name_x_max": "Слишком длинное имя автора цитаты. Максимальная длина: {{ max }}.",
+            "too_long_content_x_max": "Слишком длинный текст цитаты. Максимальная длина: {{ max }}.",
+            "unable_to_create_quote": "Невозможно создать цитату."
         }
     },
 

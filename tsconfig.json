@@ -4,7 +4,8 @@
         "module": "commonjs",
         "target": "es6",
         "sourceMap": true,
-        "lib": ["es2020.string", "esnext"]
+        "lib": ["es2020.string", "esnext"],
+        "esModuleInterop": true
     },
     "exclude": [
         "node_modules"

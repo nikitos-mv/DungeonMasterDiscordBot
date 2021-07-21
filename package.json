@@ -1,6 +1,6 @@
 {
   "name": "dm-discord-bot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.ts",
   "scripts": {
@@ -17,7 +17,9 @@
     "discord-paginationembed": "^2.1.0",
     "discord-player": "^4.1.4",
     "discord.js": "^12.5.3",
+    "escape-html": "^1.0.3",
     "localizationjs": "^2.0.16",
+    "node-html-to-image": "^3.2.0",
     "opusscript": "^0.0.8",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.4",

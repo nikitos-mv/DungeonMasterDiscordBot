@@ -3,8 +3,8 @@ import {Message} from "discord.js";
 import Bot from "../bot";
 
 import CommandParser from "../helpers/CommandParser";
-import GuildOptionHelper from "../helpers/GuildOptionHelper";
 import ErrorMessage from "../errors/ErrorMessage";
+import GuildOptionHelper from "../helpers/GuildOptionHelper";
 
 module.exports = {
     name: 'message',

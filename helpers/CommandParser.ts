@@ -60,7 +60,7 @@ export default class CommandParser
                         || true
                     );
 
-                    other = other.replace(new RegExp(`${option[0]}( |$)`, 'g'), ' ');
+                    other = other.replace(option[0], ' ');
                 }
             }
 
