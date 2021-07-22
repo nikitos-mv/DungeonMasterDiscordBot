@@ -43,7 +43,10 @@ export default class QuoteImageHelper
                 text: this.prepareQuoteText(quote.text)
             },
             transparent: true,
-            selector: '.quote-container'
+            selector: '.quote-container',
+            puppeteerArgs: {
+                args: ['--no-sandbox']
+            }
         });
     }
 
@@ -62,7 +65,10 @@ export default class QuoteImageHelper
                 text: this.prepareQuoteText(quote.text)
             },
             transparent: true,
-            selector: '.message-container'
+            selector: '.message-container',
+            puppeteerArgs: {
+                args: ['--no-sandbox']
+            }
         });
     }
 
