@@ -135,6 +135,7 @@ export default class Bot extends Client
 
                 guild: {
                     cooldown: 1,
+                    huification: true,
                     locale: 'ru-RU',
                     prefix: '!'
                 },
@@ -188,6 +189,10 @@ export default class Bot extends Client
                     maxLength: 4000,
                     perPage: 10,
                     snippetLength: 40
+                },
+
+                misc: {
+                    huificationProbability: 0.1
                 }
             },
             config

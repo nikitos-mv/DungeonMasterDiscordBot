@@ -13,6 +13,7 @@ export default interface Config
     playerQueue: ConfigPlayerQueue;
     fagots: ConfigFagots;
     quote: ConfigQuote;
+    misc: Misc;
 }
 
 interface ConfigColors
@@ -34,6 +35,7 @@ interface ConfigDataBase
 interface ConfigGuild
 {
     cooldown: number;
+    huification: boolean;
     locale: string;
     prefix: string;
 }
@@ -57,4 +59,9 @@ interface ConfigQuote
     maxLength: number;
     perPage: number;
     snippetLength: number;
+}
+
+interface Misc
+{
+    huificationProbability: number;
 }
