@@ -8,6 +8,7 @@ import {Sequelize} from "sequelize-typescript";
 import AbstractCommand from "./base/AbstractCommand";
 import Config from "./types/Config";
 import ErrorMessage from "./errors/ErrorMessage";
+import UpgradeHelper from "./helpers/UpgradeHelper";
 
 import * as fs from "fs";
 import * as path from "path";
@@ -86,11 +87,9 @@ export default class Bot extends Client
             alter: {
                 drop: false
             }
-        })
-            .then(() => {
-                console.log('Database synced.');
-            })
-            .catch(console.error);
+        }).then(() => {
+            console.log('Database synced.');
+        }).catch(console.error);
 
         this.loadEventListeners();
 
@@ -99,11 +98,14 @@ export default class Bot extends Client
         this.cooldowns = new Collection();
         this.loadCommands();
 
-        this.login(this.config.token)
-            .catch(error => console.log(`Login error: ${error}`));
+        const upgradeHelper = new UpgradeHelper(this);
+        upgradeHelper.init().then(() => {
+            upgradeHelper.upgradeIfNeeded().then(() => {
+                this.login(this.config.token).catch(error => console.log(`Login error: ${error}`));
+            });
+        });
 
         process.on('uncaughtException', error => {
-
             if (error instanceof ErrorMessage)
             {
                 return;
