@@ -1,8 +1,11 @@
 import {Column, PrimaryKey, Table, Model, DataType} from 'sequelize-typescript';
 
-@Table
+@Table({
+    tableName: 'Registry'
+})
 export default class Registry extends Model
 {
+
     @PrimaryKey
     @Column(DataType.TEXT)
     key: string;
