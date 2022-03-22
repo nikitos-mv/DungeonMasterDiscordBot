@@ -89,21 +89,21 @@ export default class Bot extends Client
             }
         }).then(() => {
             console.log('Database synced.');
-        }).catch(console.error);
 
-        this.loadEventListeners();
+            this.loadEventListeners();
 
-        this.commandGroups = new Collection();
-        this.commands = new Collection();
-        this.cooldowns = new Collection();
-        this.loadCommands();
+            this.commandGroups = new Collection();
+            this.commands = new Collection();
+            this.cooldowns = new Collection();
+            this.loadCommands();
 
-        const upgradeHelper = new UpgradeHelper(this);
-        upgradeHelper.init().then(() => {
-            upgradeHelper.upgradeIfNeeded().then(() => {
-                this.login(this.config.token).catch(error => console.log(`Login error: ${error}`));
+            const upgradeHelper = new UpgradeHelper(this);
+            upgradeHelper.init().then(() => {
+                upgradeHelper.upgradeIfNeeded().then(() => {
+                    this.login(this.config.token).catch(error => console.log(`Login error: ${error}`));
+                });
             });
-        });
+        }).catch(console.error);
 
         process.on('uncaughtException', error => {
             if (error instanceof ErrorMessage)
