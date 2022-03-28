@@ -47,6 +47,7 @@ interface ConfigPlayerQueue
 
 interface ConfigFagots
 {
+    betCooldown: number;
     competitionProbability: number;
     maxDelay: number;
     perDay: number;

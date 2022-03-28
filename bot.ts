@@ -175,6 +175,7 @@ export default class Bot extends Client
                 },
 
                 fagots: {
+                    betCooldown: 604800,
                     competitionProbability: 0.05,
                     maxDelay: 3000,
                     perDay: 1,
@@ -293,7 +294,7 @@ export default class Bot extends Client
 
         if (Array.isArray(translation))
         {
-            return translation[Math.floor(Math.random()*translation.length)];
+            return this.locale.translate(`${key}[${Math.floor(Math.random()*translation.length)}]`, params);
         }
 
         return translation;
